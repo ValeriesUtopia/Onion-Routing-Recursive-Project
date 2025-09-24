@@ -1,3 +1,4 @@
+//worked on by Gabriel, Valerie
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,6 +19,7 @@ public class testingAlgo {
     //weird algo to get it into a list bc programming hates leading zeros apparently >:(.
     private static void binaryToArrayList(long length) {
         if (length == 0) {
+            //base case
             return;
         }
         //if the length the user gave and the length of the binary doesn't match then there was a leading zero that was lost when storing the binary number.
