@@ -10,7 +10,8 @@ public class testingAlgo {
         System.out.print("Original Binary Number: ");
         printList(userBinaryList);
 
-        flipRecursive(0);
+        //flipRecursive(0);
+        testFlipper(0);
         System.out.print("Flipped Binary Number: ");
         printList(userBinaryList);
     }
@@ -40,14 +41,14 @@ public class testingAlgo {
             if (userBinaryList.size() % 2 == 0) {
                 //if the size is not odd tell user to follow instructions.
                 userBinaryList.clear();
-                print50Lines();
-                System.out.println("Please re-read instructions and comply");
+                printXLines(1);
+                System.out.println("Please re-read instructions and try again");
                 streamToList();
             }
             else if (!isAllBinary(userBinaryList)) {
                 //if the input given by the user isnt only 1's and 0's tell them to follow instructions.
                 userBinaryList.clear();
-                print50Lines();
+                printXLines(1);
                 System.out.println("Binary numbers consist of a combination of 1's and 0's, " +
                         "\nmake sure your input is also made of a combination of 1's and 0's.");
                 streamToList();
@@ -66,6 +67,7 @@ public class testingAlgo {
         }
         return (int) Math.log10(number) + 1;
     }
+    /*
     //I just added this part check it please - valerie
     private static void flipRecursive(int increment) {
         if (increment == userBinaryList.size()/2){
@@ -81,6 +83,44 @@ public class testingAlgo {
            flipRecursive(increment+1);
             }
         }
+     */
+    //test flipper | I KNOW THE IFS ARE VERBOSE IM LEARNING THE TERNARY SYNTAX
+    private static void testFlipper(int increment) {
+        if (increment == userBinaryList.size() / 2) {
+            if (userBinaryList.get(increment) == 0) {
+                userBinaryList.set(increment, 1);
+                return;
+            }
+            else {
+                userBinaryList.set(increment, 1);
+                return;
+            }
+        }
+        if (userBinaryList.get(increment) == 0) {
+            userBinaryList.set(increment, 1);
+
+            if (userBinaryList.get(userBinaryList.size() - 1 - increment) == 1) {
+                userBinaryList.set(userBinaryList.size() - 1 - increment, 0);
+                testFlipper(increment + 1);
+            }
+            else {
+                userBinaryList.set(userBinaryList.size() - 1 - increment, 1);
+                testFlipper(increment + 1);
+            }
+        }
+        else if (userBinaryList.get(increment) == 1) {
+            userBinaryList.set(increment, 0);
+
+            if (userBinaryList.get(userBinaryList.size() - 1 - increment) == 1) {
+                userBinaryList.set(userBinaryList.size() - 1 - increment, 0);
+                testFlipper(increment + 1);
+            }
+            else {
+                userBinaryList.set(userBinaryList.size() - 1 - increment, 1);
+                testFlipper(increment + 1);
+            }
+        }
+    }
     private static void printList(ArrayList<Integer> anyList) {
         System.out.print("[");
         for (int i = 0; i < anyList.size(); i++) {
@@ -101,8 +141,8 @@ public class testingAlgo {
         return result;
     }
     //this is NOT NECESSARY JUST FOR CLEARING TERMINALS (error checking)
-    private static void print50Lines(){
-        for (int i = 0; i < 50; i++) {
+    private static void printXLines(int x){
+        for (int i = 0; i < x; i++) {
             System.out.println();
         }
     }
