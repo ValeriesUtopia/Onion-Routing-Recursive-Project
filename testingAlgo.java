@@ -1,121 +1,94 @@
-//worked on by Gabriel, Valerie
+//worked on by, Gabriel and Valerie.
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.io.IOException;
 
-//FOR CONTEXT: int's work fine, I am using long bc I wanted to mess around and see how big the numbers could get :)
-//also i got bored so decided to baby-proof it bc end users have room temp iq a lot of the time.
+//I got bored, so decided to "baby-proof" it bc end users have room temp iq a lot of the time.
 public class testingAlgo {
-    private static ArrayList<Long> userBinaryList;
-    private static ArrayList<Long> finalBinaryList;
-    private static long userBinaryInput;
-    private static long length;
+    private static ArrayList<Integer> userBinaryList = new ArrayList<Integer>();
     public static void main(String[] args) {
-        userBinaryList = new ArrayList<Long>();
-        Scanner scan = new Scanner(System.in);
-        while (true) {
-            try {
-                System.out.println("How many digits will your binary number have? [MUST BE ODD AND POSITIVE]");
-                length = scan.nextLong();
+        streamToList();
+        System.out.print("Original Binary Number: ");
+        printList(userBinaryList);
 
-                if (length % 2 != 0 && length > 0) {
-                    break;
-                }
-                else {
-                    //couldnt figure out how to clear terminal so im flooding with blank lines sorry not sorry (print50Lines() is my weapon of choice).
-                    System.out.println("Please enter a valid number!");
-                    print50Lines();
-                }
-            }
-            catch (InputMismatchException e) {
-                System.out.println("please enter an odd number im beggin u");
-            }
-        }
-        while (true) {
-            System.out.println("Please enter your binary number [MUST BE ODD]: ");
-            try {
-                userBinaryInput = scan.nextLong();
-                binaryToArrayList(length);
-
-                if (length == userBinaryList.size()) {
-                    System.out.println("checking length: valid!");
-                    if (isAllBinary(userBinaryList)) {
-                        System.out.println("checking binary: valid!");
-                        System.out.println("thanks for following instructions!");
-                        break;
-                    }
-                    else {
-                        System.out.println("Please enter odd binary numbers.");
-                        print50Lines();
-                    }
-                }
-                else {
-                    System.out.println("Please make sure your inputted length matches the actual length of the binary number");
-                    print50Lines();
-                }
-            }
-            catch (InputMismatchException e) {
-                System.out.println("please enter a odd binary number, it aint that difficult.");
-            }
-        }
-        scan.close();
+        flipRecursive(0);
+        System.out.print("Flipped Binary Number: ");
+        printList(userBinaryList);
     }
+    //takes in binary from terminal
+    private static void streamToList() {
+        /* The conditions of the while loop are for the following reasons
 
-    //weird algo to get it into a list bc programming hates leading zeros apparently >:(.
-    private static void binaryToArrayList(long length) {
-        if (length == 0) {
-            //base case
-            return;
-        }
-        //if the length the user gave and the length of the binary number doesn't match then there was a leading zero that was lost when storing the binary number.
-        else if (length != getDigits(userBinaryInput)) {
-            userBinaryList.add((long) 0);
-            length--;
-            binaryToArrayList(length);
-        }
-        else {
-            //if the predicted and actual length match
-            length--;
-            long digit = (long) (int) (userBinaryInput / Math.pow(10, length));
-            userBinaryList.add(digit);
-            if (digit == 1) {
-                userBinaryInput -= (long) Math.pow(10, length);
+           1) it is checking for '\n' because it is using a stream to take in the data,
+           meaning the data it is taking in is in bytes (ASCII) from the keyboard,
+           so we are checking for a '\n' because once you press enter, you
+           have finished your data input.
+
+           2) the second part of the condition is checking for a "-1", this is a signal
+           that there is no more data to read, so the while loop will stop once there isnt
+           anymore data to read. The '-1' signals the end of the stream, aka no more data :)
+         */
+        try {
+            int BYTE;
+            int digit;
+            System.out.print("Enter your binary number, it must have an odd number of digits: ");
+            while ((BYTE = System.in.read()) != '\n' && BYTE != -1) {
+                if (BYTE >= 48 && BYTE <= 57) {
+                    digit = BYTE - 48;
+                    userBinaryList.add(digit);
+                }
             }
-            binaryToArrayList(length);
+            if (userBinaryList.size() % 2 == 0) {
+                //if the size is not odd tell user to follow instructions.
+                userBinaryList.clear();
+                print50Lines();
+                System.out.println("Please re-read instructions and comply");
+                streamToList();
+            }
+            else if (!isAllBinary(userBinaryList)) {
+                //if the input given by the user isnt only 1's and 0's tell them to follow instructions.
+                userBinaryList.clear();
+                print50Lines();
+                System.out.println("Binary numbers consist of a combination of 1's and 0's, " +
+                        "\nmake sure your input is also made of a combination of 1's and 0's.");
+                streamToList();
+            }
+            else {
+                return;
+            }
+        }
+        catch (IOException e) {
+            System.out.println("I/O ERROR: somethings wrong with reading the data :/");
         }
     }
-    private static int getDigits (long number) {
+    private static int getDigits (int number) {
         if (number == 0) {
             return 1;
         }
         return (int) Math.log10(number) + 1;
     }
-    //making flipping algo
-    private static ArrayList<Long> flipBits(ArrayList<Long> binaryInput) {
-        //to be coded
-    }
-    // i just added this part check it please
-    private static void flipRecursive(ArrayList<Long> list, int increment){ {
-        if (increment == list.size()/2){
-            if(list.size()%2==0){
-                int mid = list.size()/2;
-                list.set(mid-1, (list.get(mid)==0)?1L:0L);
+    //I just added this part check it please - valerie
+    private static void flipRecursive(int increment) {
+        if (increment == userBinaryList.size()/2){
+            if(userBinaryList.size()%2==0){ // <- the base case check condition should just be if the increment is at the halfway point (size / 2)
+                int mid = userBinaryList.size()/2; // <- remember they can only ever enter an odd number so the mid should just be size / 2 in integer division
+                userBinaryList.set(mid-1, (userBinaryList.get(mid)==0)?1:0);
                 return;
             }
            int firstIndex = increment;
-           int lastIndex = list.size()-1-increment;
-           list.set(firstIndex, (list.get(firstIndex)==0)?1L:0L);
-           list.set(lastIndex, (list.get(lastIndex)==0)?1L:0L);
-           flipRecursive(list, increment+1);
+           int lastIndex = userBinaryList.size()-1-increment;
+           userBinaryList.set(firstIndex, (userBinaryList.get(firstIndex)==0)?1:0);
+           userBinaryList.set(lastIndex, (userBinaryList.get(lastIndex)==0)?1:0);
+           flipRecursive(increment+1);
             }
         }
-    }
-    private static void printList(ArrayList<Long> anyList) {
+    private static void printList(ArrayList<Integer> anyList) {
+        System.out.print("[");
         for (int i = 0; i < anyList.size(); i++) {
             System.out.print(anyList.get(i));
         }
+        System.out.println("]");
     }
-    private static boolean isAllBinary(ArrayList<Long> binaryInput) {
+    private static boolean isAllBinary(ArrayList<Integer> binaryInput) {
         boolean result = false;
         for (int i = 0; i < binaryInput.size(); i++) {
             if (binaryInput.get(i) == 0 || binaryInput.get(i) == 1) {
@@ -127,7 +100,7 @@ public class testingAlgo {
         }
         return result;
     }
-    //this is NOT NECESSARY JUST FOR BABY-PROOFING (error checking)
+    //this is NOT NECESSARY JUST FOR CLEARING TERMINALS (error checking)
     private static void print50Lines(){
         for (int i = 0; i < 50; i++) {
             System.out.println();
