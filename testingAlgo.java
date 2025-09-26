@@ -45,7 +45,7 @@ public class testingAlgo {
                 streamToList();
             }
             else if (!isAllBinary(userBinaryList)) {
-                //if the input given by the user isnt only 1's and 0's tell them to follow instructions.
+                //if the input given by the user isn't only 1's and 0's tell them to follow instructions.
                 userBinaryList.clear();
                 printXLines(1);
                 System.out.println("Binary numbers consist of a combination of 1's and 0's, " +
@@ -66,39 +66,47 @@ public class testingAlgo {
         }
         return (int) Math.log10(number) + 1;
     }
-
-    //test flipper | I KNOW THE IFS ARE VERBOSE IM LEARNING THE TERNARY SYNTAX
+    //bit-flip
     private static void flipRecursive(int increment) {
+        //once the increment is half the size of the ArrayList, then it is in the middle of the ArrayList.
         if (increment == userBinaryList.size() / 2) {
             if (userBinaryList.get(increment) == 0) {
+                //bitflip
                 userBinaryList.set(increment, 1);
                 return;
             }
             else {
+                //bitflip
                 userBinaryList.set(increment, 1);
                 return;
             }
         }
         if (userBinaryList.get(increment) == 0) {
+            //bitflip
             userBinaryList.set(increment, 1);
 
             if (userBinaryList.get(userBinaryList.size() - 1 - increment) == 1) {
+                //bitflip
                 userBinaryList.set(userBinaryList.size() - 1 - increment, 0);
                 flipRecursive(increment + 1);
             }
             else {
+                //bitflip
                 userBinaryList.set(userBinaryList.size() - 1 - increment, 1);
                 flipRecursive(increment + 1);
             }
         }
         else if (userBinaryList.get(increment) == 1) {
+            //bitflip
             userBinaryList.set(increment, 0);
 
             if (userBinaryList.get(userBinaryList.size() - 1 - increment) == 1) {
+                //bitflip
                 userBinaryList.set(userBinaryList.size() - 1 - increment, 0);
                 flipRecursive(increment + 1);
             }
             else {
+                //bitflip
                 userBinaryList.set(userBinaryList.size() - 1 - increment, 1);
                 flipRecursive(increment + 1);
             }
