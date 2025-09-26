@@ -94,6 +94,22 @@ public class testingAlgo {
     private static ArrayList<Long> flipBits(ArrayList<Long> binaryInput) {
         //to be coded
     }
+    // i just added this part check it please
+    private static void flipRecursive(ArrayList<Long> list, int increment){ {
+        if (increment == list.size()/2){
+            if(list.size()%2==0){
+                int mid = list.size()/2;
+                list.set(mid-1, (list.get(mid)==0)?1L:0L);
+                return;
+            }
+           int firstIndex = increment;
+           int lastIndex = list.size()-1-increment;
+           list.set(firstIndex, (list.get(firstIndex)==0)?1L:0L);
+           list.set(lastIndex, (list.get(lastIndex)==0)?1L:0L);
+           flipRecursive(list, increment+1);
+            }
+        }
+    }
     private static void printList(ArrayList<Long> anyList) {
         for (int i = 0; i < anyList.size(); i++) {
             System.out.print(anyList.get(i));
