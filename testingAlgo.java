@@ -10,8 +10,7 @@ public class testingAlgo {
         System.out.print("Original Binary Number: ");
         printList(userBinaryList);
 
-        //flipRecursive(0);
-        testFlipper(0);
+        flipRecursive(0);
         System.out.print("Flipped Binary Number: ");
         printList(userBinaryList);
     }
@@ -67,25 +66,9 @@ public class testingAlgo {
         }
         return (int) Math.log10(number) + 1;
     }
-    /*
-    //I just added this part check it please - valerie
-    private static void flipRecursive(int increment) {
-        if (increment == userBinaryList.size()/2){
-            if(userBinaryList.size()%2==0){ // <- the base case check condition should just be if the increment is at the halfway point (size / 2)
-                int mid = userBinaryList.size()/2; // <- remember they can only ever enter an odd number so the mid should just be size / 2 in integer division
-                userBinaryList.set(mid-1, (userBinaryList.get(mid)==0)?1:0);
-                return;
-            }
-           int firstIndex = increment;
-           int lastIndex = userBinaryList.size()-1-increment;
-           userBinaryList.set(firstIndex, (userBinaryList.get(firstIndex)==0)?1:0);
-           userBinaryList.set(lastIndex, (userBinaryList.get(lastIndex)==0)?1:0);
-           flipRecursive(increment+1);
-            }
-        }
-     */
+
     //test flipper | I KNOW THE IFS ARE VERBOSE IM LEARNING THE TERNARY SYNTAX
-    private static void testFlipper(int increment) {
+    private static void flipRecursive(int increment) {
         if (increment == userBinaryList.size() / 2) {
             if (userBinaryList.get(increment) == 0) {
                 userBinaryList.set(increment, 1);
@@ -101,11 +84,11 @@ public class testingAlgo {
 
             if (userBinaryList.get(userBinaryList.size() - 1 - increment) == 1) {
                 userBinaryList.set(userBinaryList.size() - 1 - increment, 0);
-                testFlipper(increment + 1);
+                flipRecursive(increment + 1);
             }
             else {
                 userBinaryList.set(userBinaryList.size() - 1 - increment, 1);
-                testFlipper(increment + 1);
+                flipRecursive(increment + 1);
             }
         }
         else if (userBinaryList.get(increment) == 1) {
@@ -113,11 +96,11 @@ public class testingAlgo {
 
             if (userBinaryList.get(userBinaryList.size() - 1 - increment) == 1) {
                 userBinaryList.set(userBinaryList.size() - 1 - increment, 0);
-                testFlipper(increment + 1);
+                flipRecursive(increment + 1);
             }
             else {
                 userBinaryList.set(userBinaryList.size() - 1 - increment, 1);
-                testFlipper(increment + 1);
+                flipRecursive(increment + 1);
             }
         }
     }
