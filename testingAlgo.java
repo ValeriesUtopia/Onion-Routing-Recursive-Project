@@ -24,7 +24,7 @@ public class testingAlgo {
            have finished your data input.
 
            2) the second part of the condition is checking for a "-1", this is a signal
-           that there is no more data to read, so the while loop will stop once there isnt
+           that there is no more data to read, so the while loop will stop once there isn't
            anymore data to read. The '-1' signals the end of the stream, aka no more data :)
          */
         try {
@@ -49,7 +49,7 @@ public class testingAlgo {
                 userBinaryList.clear();
                 printXLines(1);
                 System.out.println("Binary numbers consist of a combination of 1's and 0's, " +
-                        "\nmake sure your input is also made of a combination of 1's and 0's.");
+                        "\nPlease make sure your input is also made of a combination of 1's and 0's.");
                 streamToList();
             }
             else {
