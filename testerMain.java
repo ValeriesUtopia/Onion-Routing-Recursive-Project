@@ -1,7 +1,7 @@
 public class testerMain {
    public static void main(String[] args) {
-    
-        streamToList();
+
+        testingAlgo.streamToList();
         System.out.print("Original Binary Number: ");
         printList(userBinaryList);
 
