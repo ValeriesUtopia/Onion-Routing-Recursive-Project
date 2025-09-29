@@ -7,7 +7,7 @@ public class testingAlgo {
     private static ArrayList<Integer> userBinaryList = new ArrayList<Integer>();
     
     //takes in binary from terminal
-    private static void streamToList() {
+    public static void streamToList() {
         /* The conditions of the while loop are for the following reasons
 
            1) it is checking for '\n' because it is using a stream to take in the data,
@@ -59,7 +59,7 @@ public class testingAlgo {
         return (int) Math.log10(number) + 1;
     }
     //bit-flip
-    private static void flipRecursive(int increment) {
+    public static void flipRecursive(int increment) {
         //once the increment is half the size of the ArrayList, then it is in the middle of the ArrayList.
         if (increment == userBinaryList.size() / 2) {
             if (userBinaryList.get(increment) == 0) {
@@ -104,12 +104,16 @@ public class testingAlgo {
             }
         }
     }
-    private static void printList(ArrayList<Integer> anyList) {
+    public static void printList(ArrayList<Integer> anyList) {
         System.out.print("[");
         for (int i = 0; i < anyList.size(); i++) {
             System.out.print(anyList.get(i));
         }
         System.out.println("]");
+    }
+    //getter for userBinaryList
+        public static ArrayList<Integer> getUserBinaryList() {
+        return userBinaryList;
     }
     private static boolean isAllBinary(ArrayList<Integer> binaryInput) {
         boolean result = false;

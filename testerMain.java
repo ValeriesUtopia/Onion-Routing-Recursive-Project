@@ -1,5 +1,5 @@
 public class testerMain {
-    
+
 public static void main(String[] args) {
 
         testingAlgo.streamToList();
@@ -10,7 +10,5 @@ public static void main(String[] args) {
         System.out.print("Flipped Binary Number: ");
         testingAlgo.printList(testingAlgo.getUserBinaryList());
     }
-    public static ArrayList<Integer> getUserBinaryList() {
-        return userBinaryList;
-    }
+
 }
