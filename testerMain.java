@@ -3,10 +3,10 @@ public class testerMain {
 
         testingAlgo.streamToList();
         System.out.print("Original Binary Number: ");
-        printList(userBinaryList);
+        testingAlgo.printList(userBinaryList);
 
-        flipRecursive(0);
+        testingAlgo.flipRecursive(0);
         System.out.print("Flipped Binary Number: ");
-        printList(userBinaryList);
+        testingAlgo.printList(userBinaryList);
     } 
 }
