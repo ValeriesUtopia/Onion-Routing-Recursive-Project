@@ -5,15 +5,7 @@ import java.io.IOException;
 //I got bored, so decided to "baby-proof" it bc end users have room temp iq a lot of the time.
 public class testingAlgo {
     private static ArrayList<Integer> userBinaryList = new ArrayList<Integer>();
-    public static void main(String[] args) {
-        streamToList();
-        System.out.print("Original Binary Number: ");
-        printList(userBinaryList);
-
-        flipRecursive(0);
-        System.out.print("Flipped Binary Number: ");
-        printList(userBinaryList);
-    }
+    
     //takes in binary from terminal
     private static void streamToList() {
         /* The conditions of the while loop are for the following reasons
