@@ -1,4 +1,4 @@
-//worked on by, Gabriel and Valerie.
+//coded by Gabriel and Valerie.
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.io.IOException;
