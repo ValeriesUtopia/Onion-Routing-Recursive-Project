@@ -17,7 +17,7 @@ public class Algorithms {
     }
 
     /** Reads binary input from terminal with validation. */
-    public void streamToList(InputStream in) {
+    public static ArrayList<Integer> streamToList(InputStream in) {
         /* The conditions of the while loop are for the following reasons
 
            1) it is checking for '\n' because it is using a stream to take in the data,
@@ -71,6 +71,7 @@ public class Algorithms {
                 System.out.println("I/O ERROR: somethings wrong with reading the data :/");
             }
         }
+        return userBinaryList;
     }
 
     /** Recursively peels and flips the binary list. */
@@ -161,7 +162,7 @@ public class Algorithms {
      */
 
     @Override
-    public String toString(){
+    public String toString() {
         String str = "";
         for (int i = 0; i < finalList.size(); i++){
             str += (finalList.get(i).toString());
