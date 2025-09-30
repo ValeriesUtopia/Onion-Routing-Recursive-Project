@@ -20,6 +20,14 @@ public class testingAlgo {
            that there is no more data to read, so the while loop will stop once there isn't
            anymore data to read. The '-1' signals the end of the stream, aka no more data :)
          */
+        /**
+         * Reads a binary number from the terminal input stream into {@code userBinaryList}.
+         *   Ensures the number has an odd length
+         *   Ensures all digits are binary (0 or 1)
+         *   Re-prompts the user if the input is invalid.
+         * This method uses {@code System.in.read()} to capture the input one byte at a time.
+         */
+
         try {
             int BYTE;
             int digit;
@@ -53,17 +61,28 @@ public class testingAlgo {
             System.out.println("I/O ERROR: somethings wrong with reading the data :/");
         }
     }
+    /**
+     * Returns the number of digits in a given integer.
+     *
+     * @param number the integer whose digit count is to be determined
+     * @return the number of digits in {@code number}
+     */
+
     private static int getDigits (int number) {
         if (number == 0) {
             return 1;
         }
         return (int) Math.log10(number) + 1;
     }
-    //bit-flip
-    /* Recursive function that flips the bits of the ArrayList
-       it takes in an increment variable that starts at 0, and is used to
-       traverse the ArrayList from both ends, towards the middle.
+
+    /**
+     * Recursively flips the bits in {@code userBinaryList} from the outside inward.
+     *   Flips the outermost pair of bits first.
+     *   Moves inward one step on each recursive call.
+     *   Stops when the middle bit is reached (base case).
+     * @param increment the current position from the outer edge of the list
      */
+    
     public static void flipRecursive(int increment) {
         //once the increment is half the size of the ArrayList, then it is in the middle of the ArrayList.
         if (increment == userBinaryList.size() / 2) {
@@ -109,6 +128,12 @@ public class testingAlgo {
             }
         }
     }
+    /**
+     * Prints the binary digits of a given list in a formatted manner.
+     *
+     * @param anyList the list of binary digits to print
+     */
+
     public static void printList(ArrayList<Integer> anyList) {
         System.out.print("[");
         for (int i = 0; i < anyList.size(); i++) {
@@ -120,9 +145,13 @@ public class testingAlgo {
         public static ArrayList<Integer> getUserBinaryList() {
         return userBinaryList;
     }
-    /* checks if the input given by the user is all binary (1's and 0's)
-       returns true if it is, false if it isn't
+    /**
+     * Checks whether all elements in the given list are binary digits (0 or 1).
+     *
+     * @param binaryInput the list to validate
+     * @return {@code true} if all elements are 0 or 1; {@code false} otherwise
      */
+
     private static boolean isAllBinary(ArrayList<Integer> binaryInput) {
         boolean result = false;
         for (int i = 0; i < binaryInput.size(); i++) {
@@ -135,6 +164,13 @@ public class testingAlgo {
         }
         return result;
     }
+     /**
+     * Checks if the binary list is symmetrical (palindromic).
+     *
+     * @return {@code true} if the list reads the same forwards and backwards;
+     *         {@code false} otherwise
+     */
+
     public static eQuals(){
         for(int i = 0; i < userBinaryList.size(); i++){
             if(userBinaryList.get(i) != userBinaryList.get(userBinaryList.size() - 1 - i)){
@@ -144,6 +180,13 @@ public class testingAlgo {
         return true;
 
     }
+    /**
+     * Returns a string representation of the binary list without brackets or commas.
+     *
+     * @return the binary number as a string
+     */
+
+    @Override
     public String toString(){
         String str = "";
         for(int i = 0; i < userBinaryList.size(); i++){
@@ -151,7 +194,14 @@ public class testingAlgo {
         }
         return str;
     }
+    /**
+     * Prints {@code x} blank lines to the console.
+     * Used as a way to visually clear the terminal output.
+     *
+     * @param x the number of blank lines to print
+     */
     //this is NOT NECESSARY JUST FOR CLEARING TERMINALS (error checking)
+
     private static void printXLines(int x){
         for (int i = 0; i < x; i++) {
             System.out.println();

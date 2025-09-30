@@ -1,5 +1,11 @@
 // coded by Valerie
 
+    /**
+     * The main method where program execution begins.
+     *
+     * @param args command-line arguments (not used)
+     */
+    
 public class testerMain {
 
 public static void main(String[] args) {
