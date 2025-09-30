@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 public class OnionTest {
 
+    /** Tests flipping a single binary digit. */
     @Test
     public void testSingleDigit() {
         ArrayList<Integer> input = new ArrayList<>(Arrays.asList(1));
@@ -13,6 +14,7 @@ public class OnionTest {
         assertTrue(algo.equals(expected));
     }
 
+    /** Tests flipping three binary digits. */
     @Test
     public void testThreeDigits() {
         ArrayList<Integer> input = new ArrayList<>(Arrays.asList(1, 0, 1));
@@ -21,6 +23,7 @@ public class OnionTest {
         assertTrue(algo.equals(expected));
     }
 
+    /** Tests flipping five binary digits. */
     @Test
     public void testFiveDigits() {
         ArrayList<Integer> input = new ArrayList<>(Arrays.asList(1, 1, 0, 0, 1));

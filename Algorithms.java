@@ -10,11 +10,13 @@ public class Algorithms {
     private ArrayList<Integer> solution = new ArrayList<Integer>();
     private ArrayList<Integer> finalList = new ArrayList<Integer>();
 
+    /** Constructs an Algorithms object and processes the binary list. */
     public Algorithms(ArrayList<Integer> list) {
         userBinaryList = list;
         this.solution = peel(list);
     }
-    //takes in binary from terminal
+
+    /** Reads binary input from terminal with validation. */
     public void streamToList(InputStream in) {
         /* The conditions of the while loop are for the following reasons
 
@@ -71,6 +73,7 @@ public class Algorithms {
         }
     }
 
+    /** Recursively peels and flips the binary list. */
     public ArrayList<Integer> peel (ArrayList<Integer> list) {
         ArrayList<Integer> newList = new ArrayList<Integer>();
         if (list.size() == 1) {
@@ -80,24 +83,25 @@ public class Algorithms {
             return newList;
         }
         else {
-        ArrayList<Integer> innerList = new ArrayList<Integer>();
-        for (int i = 1; i < list.size() - 1; i++) {
+            ArrayList<Integer> innerList = new ArrayList<Integer>();
+            for (int i = 1; i < list.size() - 1; i++) {
                 innerList.add(list.get(i));
             }
-        Algorithms algo = new Algorithms(innerList);
-        ArrayList<Integer> innerSolution = algo.getSolution();
+            Algorithms algo = new Algorithms(innerList);
+            ArrayList<Integer> innerSolution = algo.getSolution();
 
-        ArrayList<Integer> complete = new ArrayList<>();
-        complete.add(flip(list.getFirst()));
-        complete.addAll(innerSolution);
-        complete.add(flip(list.getLast()));
+            ArrayList<Integer> complete = new ArrayList<>();
+            complete.add(flip(list.getFirst()));
+            complete.addAll(innerSolution);
+            complete.add(flip(list.getLast()));
 
-        finalList.clear();
-        finalList.addAll(complete);
-        return complete;
+            finalList.clear();
+            finalList.addAll(complete);
+            return complete;
         }
     }
 
+    /** Flips a binary digit (0 to 1 or 1 to 0). */
     public int flip (int num) {
         if (num == 1) {
             return 0;
@@ -107,6 +111,7 @@ public class Algorithms {
         }
     }
 
+    /** Returns the solution list. */
     public ArrayList<Integer> getSolution () {
         return solution;
     }
@@ -130,24 +135,25 @@ public class Algorithms {
         }
         return result;
     }
-     /**
+    /**
      * Checks if the binary list is symmetrical (palindromic).
      *
      * @return {@code true} if the list reads the same forwards and backwards;
      *         {@code false} otherwise
      */
 
-     public boolean equals(ArrayList<Integer> other) {
-         if (finalList.size() != other.size()) {
-             return false;
-         }
-         for (int i = 0; i < finalList.size(); i++) {
-             if (!finalList.get(i).equals(other.get(i))) {
-                 return false;
-             }
-         }
-         return true;
-     }
+    /** Compares finalList with another list. */
+    public boolean equals(ArrayList<Integer> other) {
+        if (finalList.size() != other.size()) {
+            return false;
+        }
+        for (int i = 0; i < finalList.size(); i++) {
+            if (!finalList.get(i).equals(other.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
     /**
      * Returns a string representation of the binary list without brackets or commas.
      *
