@@ -4,6 +4,7 @@ import java.io.IOException;
 
 //I got bored, so decided to "baby-proof" it bc end users have room temp iq a lot of the time.
 public class testingAlgo {
+
     private static ArrayList<Integer> userBinaryList = new ArrayList<Integer>();
     
     //takes in binary from terminal
@@ -59,6 +60,10 @@ public class testingAlgo {
         return (int) Math.log10(number) + 1;
     }
     //bit-flip
+    /* Recursive function that flips the bits of the ArrayList
+       it takes in an increment variable that starts at 0, and is used to
+       traverse the ArrayList from both ends, towards the middle.
+     */
     public static void flipRecursive(int increment) {
         //once the increment is half the size of the ArrayList, then it is in the middle of the ArrayList.
         if (increment == userBinaryList.size() / 2) {
@@ -115,6 +120,9 @@ public class testingAlgo {
         public static ArrayList<Integer> getUserBinaryList() {
         return userBinaryList;
     }
+    /* checks if the input given by the user is all binary (1's and 0's)
+       returns true if it is, false if it isn't
+     */
     private static boolean isAllBinary(ArrayList<Integer> binaryInput) {
         boolean result = false;
         for (int i = 0; i < binaryInput.size(); i++) {
@@ -126,6 +134,22 @@ public class testingAlgo {
             }
         }
         return result;
+    }
+    public static eQuals(){
+        for(int i = 0; i < userBinaryList.size(); i++){
+            if(userBinaryList.get(i) != userBinaryList.get(userBinaryList.size() - 1 - i)){
+                return false;
+            }
+        }
+        return true;
+
+    }
+    public String toString(){
+        String str = "";
+        for(int i = 0; i < userBinaryList.size(); i++){
+            str += userBinaryList.get(i);
+        }
+        return str;
     }
     //this is NOT NECESSARY JUST FOR CLEARING TERMINALS (error checking)
     private static void printXLines(int x){
