@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 //I got bored, so decided to "baby-proof" it bc end users have room temp iq a lot of the time.
-public class testingAlgo {
+public class Algorithms {
 
     private static ArrayList<Integer> userBinaryList = new ArrayList<Integer>();
-    private static ArrayList<Integer> result = new ArrayList<Integer>();
-    private int increment;
+    private ArrayList<Integer> solution = new ArrayList<Integer>();
+    private ArrayList<Integer> finalList = new ArrayList<Integer>();
 
-    public testingAlgo(ArrayList<Integer> list) {
-        this.increment = 0;
+    public Algorithms(ArrayList<Integer> list) {
         userBinaryList = list;
-        result =
+        this.solution = peel(list);
     }
     //takes in binary from terminal
     public void streamToList(InputStream in) {
@@ -75,11 +74,27 @@ public class testingAlgo {
     public ArrayList<Integer> peel (ArrayList<Integer> list) {
         ArrayList<Integer> newList = new ArrayList<Integer>();
         if (list.size() == 1) {
-            newList.set(0, flip(list.getFirst()));
+            newList.add(flip(list.getFirst()));
+            finalList.clear();
+            finalList.addAll(newList);
             return newList;
         }
         else {
+        ArrayList<Integer> innerList = new ArrayList<Integer>();
+        for (int i = 1; i < list.size() - 1; i++) {
+                innerList.add(list.get(i));
+            }
+        Algorithms algo = new Algorithms(innerList);
+        ArrayList<Integer> innerSolution = algo.getSolution();
 
+        ArrayList<Integer> complete = new ArrayList<>();
+        complete.add(flip(list.getFirst()));
+        complete.addAll(innerSolution);
+        complete.add(flip(list.getLast()));
+
+        finalList.clear();
+        finalList.addAll(complete);
+        return complete;
         }
     }
 
@@ -91,80 +106,11 @@ public class testingAlgo {
             return 1;
         }
     }
-    /**
-     * Recursively flips the bits in {@code userBinaryList} from the outside inward.
-     *   Flips the outermost pair of bits first.
-     *   Moves inward one step on each recursive call.
-     *   Stops when the middle bit is reached (base case).
-     * @param increment the current position from the outer edge of the list
-     */
-    
-    public void flipRecursive() {
-        //once the increment is half the size of the ArrayList, then it is in the middle of the ArrayList.
-        if (increment == userBinaryList.size() / 2) {
-            if (userBinaryList.get(increment) == 0) {
-                //bitflip
-                userBinaryList.set(increment, 1);
-                return;
-            }
-            else {
-                //bitflip
-                userBinaryList.set(increment, 1);
-                return;
-            }
-        }
-        if (userBinaryList.get(increment) == 0) {
-            //bitflip
-            userBinaryList.set(increment, 1);
 
-            if (userBinaryList.get(userBinaryList.size() - 1 - increment) == 1) {
-                //bitflip
-                userBinaryList.set(userBinaryList.size() - 1 - increment, 0);
-                increment++;
-                flipRecursive();
-            }
-            else {
-                //bitflip
-                userBinaryList.set(userBinaryList.size() - 1 - increment, 1);
-                increment++;
-                flipRecursive();
-            }
-        }
-        else if (userBinaryList.get(increment) == 1) {
-            //bitflip
-            userBinaryList.set(increment, 0);
+    public ArrayList<Integer> getSolution () {
+        return solution;
+    }
 
-            if (userBinaryList.get(userBinaryList.size() - 1 - increment) == 1) {
-                //bitflip
-                userBinaryList.set(userBinaryList.size() - 1 - increment, 0);
-                increment++;
-                flipRecursive();
-            }
-            else {
-                //bitflip
-                userBinaryList.set(userBinaryList.size() - 1 - increment, 1);
-                increment++;
-                flipRecursive();
-            }
-        }
-    }
-    /**
-     * Prints the binary digits of a given list in a formatted manner.
-     *
-     * @param anyList the list of binary digits to print
-     */
-
-    public static void printList(ArrayList<Integer> anyList) {
-        System.out.print("[");
-        for (int i = 0; i < anyList.size(); i++) {
-            System.out.print(anyList.get(i));
-        }
-        System.out.println("]");
-    }
-    //getter for userBinaryList
-        public static ArrayList<Integer> getUserBinaryList() {
-        return userBinaryList;
-    }
     /**
      * Checks whether all elements in the given list are binary digits (0 or 1).
      *
@@ -191,15 +137,17 @@ public class testingAlgo {
      *         {@code false} otherwise
      */
 
-    public static boolean eQuals(){
-        for(int i = 0; i < userBinaryList.size(); i++){
-            if(userBinaryList.get(i) != userBinaryList.get(userBinaryList.size() - 1 - i)){
-                return false;
-            }
-        }
-        return true;
-
-    }
+     public boolean equals(ArrayList<Integer> other) {
+         if (finalList.size() != other.size()) {
+             return false;
+         }
+         for (int i = 0; i < finalList.size(); i++) {
+             if (!finalList.get(i).equals(other.get(i))) {
+                 return false;
+             }
+         }
+         return true;
+     }
     /**
      * Returns a string representation of the binary list without brackets or commas.
      *
@@ -208,16 +156,11 @@ public class testingAlgo {
 
     @Override
     public String toString(){
-        String str = "Original Binary Number: [";
-        for (int i = 0; i < copyOfList.size(); i++){
-            str += copyOfList.get(i);
+        String str = "";
+        for (int i = 0; i < finalList.size(); i++){
+            str += (finalList.get(i).toString());
         }
-        str += "]\nFlipped Binary Number: [";
-        for(int i = 0; i < userBinaryList.size(); i++){
-            str += userBinaryList.get(i);
-        }
-        str += "]";
-        return str;
+        return str.toString();
     }
     /**
      * Prints {@code x} blank lines to the console.
