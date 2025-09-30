@@ -1,4 +1,5 @@
 //worked on by, Gabriel and Valerie.
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.io.IOException;
 
@@ -6,9 +7,16 @@ import java.io.IOException;
 public class testingAlgo {
 
     private static ArrayList<Integer> userBinaryList = new ArrayList<Integer>();
-    
+    private static ArrayList<Integer> result = new ArrayList<Integer>();
+    private int increment;
+
+    public testingAlgo(ArrayList<Integer> list) {
+        this.increment = 0;
+        userBinaryList = list;
+        result =
+    }
     //takes in binary from terminal
-    public static void streamToList() {
+    public void streamToList(InputStream in) {
         /* The conditions of the while loop are for the following reasons
 
            1) it is checking for '\n' because it is using a stream to take in the data,
@@ -28,53 +36,61 @@ public class testingAlgo {
          * This method uses {@code System.in.read()} to capture the input one byte at a time.
          */
 
-        try {
-            int BYTE;
-            int digit;
-            System.out.print("Enter your binary number, it must have an odd number of digits: ");
-            while ((BYTE = System.in.read()) != '\n' && BYTE != -1) {
-                if (BYTE >= 48 && BYTE <= 57) {
-                    digit = BYTE - 48;
-                    userBinaryList.add(digit);
+        while (true) {
+            try {
+                int BYTE;
+                int digit;
+                System.out.print("Enter your binary number, it must have an odd number of digits: ");
+                while ((BYTE = System.in.read()) != '\n' && BYTE != -1) {
+                    if (BYTE >= 48 && BYTE <= 57) {
+                        digit = BYTE - 48;
+                        userBinaryList.add(digit);
+                    }
+                }
+                if (userBinaryList.size() % 2 != 0) {
+                    //if the size is not odd tell user to follow instructions.
+                    if (isAllBinary(userBinaryList)) {
+                        break;
+                    }
+                    else {
+                        //if the input given by the user isn't only 1's and 0's tell them to follow instructions.
+                        userBinaryList.clear();
+                        printXLines(1);
+                        System.out.println("Binary numbers consist of a combination of 1's and 0's, " +
+                                "\nPlease make sure your input is also a combination of 1's and 0's.");
+                    }
+                }
+                else {
+                    userBinaryList.clear();
+                    printXLines(1);
+                    System.out.println("Please re-read instructions and try again");
                 }
             }
-            if (userBinaryList.size() % 2 == 0) {
-                //if the size is not odd tell user to follow instructions.
-                userBinaryList.clear();
-                printXLines(1);
-                System.out.println("Please re-read instructions and try again");
-                streamToList();
+            catch (IOException e) {
+                System.out.println("I/O ERROR: somethings wrong with reading the data :/");
             }
-            else if (!isAllBinary(userBinaryList)) {
-                //if the input given by the user isn't only 1's and 0's tell them to follow instructions.
-                userBinaryList.clear();
-                printXLines(1);
-                System.out.println("Binary numbers consist of a combination of 1's and 0's, " +
-                        "\nPlease make sure your input is also made of a combination of 1's and 0's.");
-                streamToList();
-            }
-            else {
-                return;
-            }
-        }
-        catch (IOException e) {
-            System.out.println("I/O ERROR: somethings wrong with reading the data :/");
         }
     }
-    /**
-     * Returns the number of digits in a given integer.
-     *
-     * @param number the integer whose digit count is to be determined
-     * @return the number of digits in {@code number}
-     */
 
-    private static int getDigits (int number) {
-        if (number == 0) {
+    public ArrayList<Integer> peel (ArrayList<Integer> list) {
+        ArrayList<Integer> newList = new ArrayList<Integer>();
+        if (list.size() == 1) {
+            newList.set(0, flip(list.getFirst()));
+            return newList;
+        }
+        else {
+
+        }
+    }
+
+    public int flip (int num) {
+        if (num == 1) {
+            return 0;
+        }
+        else {
             return 1;
         }
-        return (int) Math.log10(number) + 1;
     }
-
     /**
      * Recursively flips the bits in {@code userBinaryList} from the outside inward.
      *   Flips the outermost pair of bits first.
@@ -83,7 +99,7 @@ public class testingAlgo {
      * @param increment the current position from the outer edge of the list
      */
     
-    public static void flipRecursive(int increment) {
+    public void flipRecursive() {
         //once the increment is half the size of the ArrayList, then it is in the middle of the ArrayList.
         if (increment == userBinaryList.size() / 2) {
             if (userBinaryList.get(increment) == 0) {
@@ -104,12 +120,14 @@ public class testingAlgo {
             if (userBinaryList.get(userBinaryList.size() - 1 - increment) == 1) {
                 //bitflip
                 userBinaryList.set(userBinaryList.size() - 1 - increment, 0);
-                flipRecursive(increment + 1);
+                increment++;
+                flipRecursive();
             }
             else {
                 //bitflip
                 userBinaryList.set(userBinaryList.size() - 1 - increment, 1);
-                flipRecursive(increment + 1);
+                increment++;
+                flipRecursive();
             }
         }
         else if (userBinaryList.get(increment) == 1) {
@@ -119,12 +137,14 @@ public class testingAlgo {
             if (userBinaryList.get(userBinaryList.size() - 1 - increment) == 1) {
                 //bitflip
                 userBinaryList.set(userBinaryList.size() - 1 - increment, 0);
-                flipRecursive(increment + 1);
+                increment++;
+                flipRecursive();
             }
             else {
                 //bitflip
                 userBinaryList.set(userBinaryList.size() - 1 - increment, 1);
-                flipRecursive(increment + 1);
+                increment++;
+                flipRecursive();
             }
         }
     }
@@ -171,7 +191,7 @@ public class testingAlgo {
      *         {@code false} otherwise
      */
 
-    public static eQuals(){
+    public static boolean eQuals(){
         for(int i = 0; i < userBinaryList.size(); i++){
             if(userBinaryList.get(i) != userBinaryList.get(userBinaryList.size() - 1 - i)){
                 return false;
@@ -188,10 +208,15 @@ public class testingAlgo {
 
     @Override
     public String toString(){
-        String str = "";
+        String str = "Original Binary Number: [";
+        for (int i = 0; i < copyOfList.size(); i++){
+            str += copyOfList.get(i);
+        }
+        str += "]\nFlipped Binary Number: [";
         for(int i = 0; i < userBinaryList.size(); i++){
             str += userBinaryList.get(i);
         }
+        str += "]";
         return str;
     }
     /**
@@ -201,7 +226,6 @@ public class testingAlgo {
      * @param x the number of blank lines to print
      */
     //this is NOT NECESSARY JUST FOR CLEARING TERMINALS (error checking)
-
     private static void printXLines(int x){
         for (int i = 0; i < x; i++) {
             System.out.println();
