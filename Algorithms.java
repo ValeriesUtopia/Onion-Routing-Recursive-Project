@@ -29,13 +29,6 @@ public class Algorithms {
            that there is no more data to read, so the while loop will stop once there isn't
            anymore data to read. The '-1' signals the end of the stream, aka no more data :)
          */
-        /**
-         * Reads a binary number from the terminal input stream into {@code userBinaryList}.
-         *   Ensures the number has an odd length
-         *   Ensures all digits are binary (0 or 1)
-         *   Re-prompts the user if the input is invalid.
-         * This method uses {@code System.in.read()} to capture the input one byte at a time.
-         */
 
         while (true) {
             try {
